@@ -1,9 +1,0 @@
-/Users/yuxuan/Develop/Java/fast-admin-v2/fast-auth/src/main/java/cc/oofo/auth/configure/FastWebConfigure.java
-/Users/yuxuan/Develop/Java/fast-admin-v2/fast-auth/src/main/java/cc/oofo/auth/controller/AuthController.java
-/Users/yuxuan/Develop/Java/fast-admin-v2/fast-auth/src/main/java/cc/oofo/auth/entity/SysUser.java
-/Users/yuxuan/Develop/Java/fast-admin-v2/fast-auth/src/main/java/cc/oofo/auth/entity/consts/SysUserSex.java
-/Users/yuxuan/Develop/Java/fast-admin-v2/fast-auth/src/main/java/cc/oofo/auth/entity/consts/SysUserStatus.java
-/Users/yuxuan/Develop/Java/fast-admin-v2/fast-auth/src/main/java/cc/oofo/auth/entity/dto/LoginDto.java
-/Users/yuxuan/Develop/Java/fast-admin-v2/fast-auth/src/main/java/cc/oofo/auth/entity/dto/LoginRsDto.java
-/Users/yuxuan/Develop/Java/fast-admin-v2/fast-auth/src/main/java/cc/oofo/auth/mapper/SysUserMapper.java
-/Users/yuxuan/Develop/Java/fast-admin-v2/fast-auth/src/main/java/cc/oofo/auth/service/AuthService.java

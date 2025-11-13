@@ -50,6 +50,11 @@ public class SysMenu extends BaseEntity<SysMenu> {
     private String path;
 
     /**
+     * 激活路径
+     */
+    private String activePath;
+
+    /**
      * 前端组件路径
      */
     private String component;
@@ -58,6 +63,11 @@ public class SysMenu extends BaseEntity<SysMenu> {
      * 菜单/按钮图标
      */
     private String icon;
+
+    /**
+     * 激活状态图标
+     */
+    private String metaActiveIcon;
 
     /**
      * 前端显示标题，可用于国际化
@@ -73,6 +83,31 @@ public class SysMenu extends BaseEntity<SysMenu> {
      * 是否固定标签页
      */
     private Boolean metaAffixTab;
+
+    /**
+     * 是否保持组件活跃状态
+     */
+    private Boolean metaKeepAlive;
+
+    /**
+     * 是否在菜单中隐藏
+     */
+    private Boolean metaHideInMenu;
+
+    /**
+     * 是否隐藏子菜单
+     */
+    private Boolean metaHideChildrenInMenu;
+
+    /**
+     * 是否在面包屑中隐藏
+     */
+    private Boolean metaHideInBreadcrumb;
+
+    /**
+     * 是否在标签页中隐藏
+     */
+    private Boolean metaHideInTab;
 
     /**
      * 徽标显示内容

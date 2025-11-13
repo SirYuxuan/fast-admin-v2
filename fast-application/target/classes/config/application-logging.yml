@@ -1,7 +1,0 @@
-logging:
-  level:
-    root: info
-    cc:
-      oofo: debug
-    com:
-      baomidou: error

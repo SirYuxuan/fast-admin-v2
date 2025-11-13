@@ -3,6 +3,7 @@ package cc.oofo.system.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
@@ -17,7 +18,10 @@ import cc.oofo.framework.exception.BizException;
 import cc.oofo.framework.utils.StpUtil;
 import cc.oofo.system.entity.SysMenu;
 import cc.oofo.system.entity.SysRolesMenus;
+import cc.oofo.system.entity.consts.SysMenuStatus;
+import cc.oofo.system.entity.consts.SysMenuType;
 import cc.oofo.system.entity.dto.SysMenuDto;
+import cc.oofo.system.entity.dto.SysMenuSaveDto;
 import cc.oofo.system.mapper.SysMenuMapper;
 import jakarta.annotation.Resource;
 
@@ -46,6 +50,164 @@ public class SysMenuService extends BaseService<SysMenu> {
 
         // 转换为DTO并构建树形结构
         return buildMenuTree(menuList, false);
+    }
+
+    /**
+     * 添加菜单
+     * 
+     * @param menuSaveDto 菜单保存DTO
+     */
+    public void add(SysMenuSaveDto menuSaveDto) {
+        // 1. 参数校验
+        validateMenuData(menuSaveDto, null);
+
+        // 2. 创建菜单实体
+        SysMenu menu = new SysMenu();
+        convertSaveDtoToEntity(menuSaveDto, menu);
+
+        // 3. 保存菜单
+        save(menu);
+    }
+
+    /**
+     * 更新菜单
+     * 
+     * @param menuSaveDto 菜单保存DTO
+     */
+    public void update(SysMenuSaveDto menuSaveDto) {
+        // 1. 检查菜单是否存在
+        if (!StringUtils.hasText(menuSaveDto.getId())) {
+            throw new BizException("菜单ID不能为空");
+        }
+
+        SysMenu existMenu = getById(menuSaveDto.getId());
+        if (existMenu == null) {
+            throw new BizException("菜单不存在");
+        }
+
+        // 2. 参数校验
+        validateMenuData(menuSaveDto, menuSaveDto.getId());
+
+        // 3. 更新菜单实体
+        convertSaveDtoToEntity(menuSaveDto, existMenu);
+
+        // 4. 保存更新
+        updateById(existMenu);
+    }
+
+    /**
+     * 校验菜单数据
+     * 
+     * @param menuSaveDto 菜单保存DTO
+     * @param menuId      菜单ID（更新时使用）
+     */
+    private void validateMenuData(SysMenuSaveDto menuSaveDto, String menuId) {
+        // 校验必填字段
+        if (!StringUtils.hasText(menuSaveDto.getName())) {
+            throw new BizException("菜单名称不能为空");
+        }
+
+        if (!StringUtils.hasText(menuSaveDto.getType())) {
+            throw new BizException("菜单类型不能为空");
+        }
+
+        // 校验菜单名称唯一性
+        if (nameExists(menuId, menuSaveDto.getName())) {
+            throw new BizException("菜单名称已存在");
+        }
+
+        // 校验路径唯一性（非按钮类型且路径不为空时）
+        if (StringUtils.hasText(menuSaveDto.getPath()) &&
+                !"button".equalsIgnoreCase(menuSaveDto.getType()) &&
+                pathExists(menuId, menuSaveDto.getPath())) {
+            throw new BizException("菜单路径已存在");
+        }
+
+        // 校验父菜单是否存在
+        if (StringUtils.hasText(menuSaveDto.getPid())) {
+            SysMenu parentMenu = getById(menuSaveDto.getPid());
+            if (parentMenu == null) {
+                throw new BizException("父菜单不存在");
+            }
+
+            // 不能选择自己作为父菜单
+            if (Objects.equals(menuSaveDto.getPid(), menuId)) {
+                throw new BizException("不能选择自己作为父菜单");
+            }
+        }
+    }
+
+    /**
+     * 将保存DTO转换为实体
+     * 
+     * @param menuSaveDto 菜单保存DTO
+     * @param menu        菜单实体
+     */
+    private void convertSaveDtoToEntity(SysMenuSaveDto menuSaveDto, SysMenu menu) {
+        // 基础属性
+        menu.setPid(menuSaveDto.getPid());
+        menu.setName(menuSaveDto.getName());
+        menu.setCode(menuSaveDto.getAuthCode());
+        menu.setPath(menuSaveDto.getPath());
+        menu.setActivePath(menuSaveDto.getActivePath());
+        menu.setComponent(menuSaveDto.getComponent());
+        menu.setRemark(menuSaveDto.getRemark());
+
+        // 转换菜单类型枚举
+        if (StringUtils.hasText(menuSaveDto.getType())) {
+            try {
+                menu.setType(SysMenuType.valueOf(menuSaveDto.getType().toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                throw new BizException("无效的菜单类型：" + menuSaveDto.getType());
+            }
+        }
+
+        // 转换状态枚举
+        if (menuSaveDto.getStatus() != null) {
+            menu.setStatus(menuSaveDto.getStatus() == 1 ? SysMenuStatus.ENABLED : SysMenuStatus.DISABLED);
+        }
+
+        // 处理meta信息
+        SysMenuSaveDto.MenuMetaSave meta = menuSaveDto.getMeta();
+        if (meta != null) {
+            menu.setIcon(meta.getIcon());
+            menu.setMetaActiveIcon(meta.getActiveIcon());
+            menu.setMetaTitle(meta.getTitle());
+            menu.setMetaOrder(meta.getOrder());
+            menu.setMetaAffixTab(meta.getAffixTab());
+            menu.setMetaKeepAlive(meta.getKeepAlive());
+            menu.setMetaHideInMenu(meta.getHideInMenu());
+            menu.setMetaHideChildrenInMenu(meta.getHideChildrenInMenu());
+            menu.setMetaHideInBreadcrumb(meta.getHideInBreadcrumb());
+            menu.setMetaHideInTab(meta.getHideInTab());
+            menu.setMetaBadge(meta.getBadge());
+            menu.setMetaBadgeType(meta.getBadgeType());
+            menu.setMetaBadgeVariants(meta.getBadgeVariants());
+            menu.setMetaIframeSrc(meta.getIframeSrc());
+            menu.setMetaLink(meta.getLink());
+        }
+    }
+
+    /**
+     * 检查菜单名称是否存在
+     * 
+     * @param id   菜单ID
+     * @param name 菜单名称
+     * @return 是否存在
+     */
+    public Boolean nameExists(String id, String name) {
+        return query().ne(StringUtils.hasText(id), "id", id).eq("name", name).exists();
+    }
+
+    /**
+     * 检查菜单路径是否存在
+     * 
+     * @param id   菜单ID
+     * @param path 菜单路径
+     * @return 是否存在
+     */
+    public Boolean pathExists(String id, String path) {
+        return query().ne(StringUtils.hasText(id), "id", id).eq("path", path).exists();
     }
 
     /**
