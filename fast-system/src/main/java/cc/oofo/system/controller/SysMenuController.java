@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cc.oofo.framework.base.BaseController;
@@ -40,24 +41,24 @@ public class SysMenuController extends BaseController<SysMenuService> {
     /**
      * 检查菜单名称是否存在
      * 
-     * @param id   菜单ID
+     * @param id   菜单ID（可选，编辑时传入）
      * @param name 菜单名称
      * @return 是否存在
      */
     @GetMapping(path = "/nameExists")
-    public Rs<Boolean> nameExists(String id, String name) {
+    public Rs<Boolean> nameExists(@RequestParam(required = false) String id, @RequestParam String name) {
         return Rs.ok(baseService.nameExists(id, name));
     }
 
     /**
      * 检查菜单路径是否存在
      * 
-     * @param id   菜单ID
+     * @param id   菜单ID（可选，编辑时传入）
      * @param path 菜单路径
      * @return 是否存在
      */
     @GetMapping(path = "/pathExists")
-    public Rs<Boolean> pathExists(String id, String path) {
+    public Rs<Boolean> pathExists(@RequestParam(required = false) String id, @RequestParam String path) {
         return Rs.ok(baseService.pathExists(id, path));
     }
 
@@ -91,8 +92,9 @@ public class SysMenuController extends BaseController<SysMenuService> {
      * @param menuSaveDto 菜单保存DTO
      * @return 操作结果
      */
-    @PutMapping
-    public Rs<Void> update(@RequestBody SysMenuSaveDto menuSaveDto) {
+    @PutMapping(path = "/{id}")
+    public Rs<Void> update(@PathVariable String id, @RequestBody SysMenuSaveDto menuSaveDto) {
+        menuSaveDto.setId(id);
         baseService.update(menuSaveDto);
         return Rs.ok();
     }
@@ -106,4 +108,5 @@ public class SysMenuController extends BaseController<SysMenuService> {
     public Rs<List<SysMenuDto>> list() {
         return Rs.ok(baseService.buildMenuTree(baseService.list(), true));
     }
+
 }
