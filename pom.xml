@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cc.oofo</groupId>
+    <artifactId>fast-admin</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1-dev</version>
+    <description>雨轩快速开发平台V2</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.7</version>
+        <relativePath />
+    </parent>
+
+    <modules>
+        <module>fast-framework</module>
+        <module>fast-cache</module>
+        <module>fast-application</module>
+        <module>fast-system</module>
+        <module>fast-auth</module>
+        <module>fast-database</module>
+        <module>fast-utils</module>
+    </modules>
+
+
+    <properties>
+        <project.version>0.0.1-dev</project.version>
+        <java.version>21</java.version>
+        <sa.token.version>1.44.0</sa.token.version>
+        <mybatis.plus.version>3.5.14</mybatis.plus.version>
+        <jbcrypt.version>0.4</jbcrypt.version>
+        <ksuid.version>1.1.4</ksuid.version>
+        <postgresql.version>42.7.8</postgresql.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Sa-Token 整合 RedisTemplate -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-redis-template</artifactId>
+                <version>${sa.token.version}</version>
+            </dependency>
+
+            <!-- PostgreSQL 数据库驱动 -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+            <!-- KSUID 全局唯一ID -->
+            <dependency>
+                <groupId>com.github.ksuid</groupId>
+                <artifactId>ksuid</artifactId>
+                <version>${ksuid.version}</version>
+            </dependency>
+            <!-- jBCrypt 密码加密 -->
+            <dependency>
+                <groupId>org.mindrot</groupId>
+                <artifactId>jbcrypt</artifactId>
+                <version>${jbcrypt.version}</version>
+            </dependency>
+            <!-- SaToken 鉴权 -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot3-starter</artifactId>
+                <version>${sa.token.version}</version>
+            </dependency>
+            <!-- MyBatis-Plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+
+            <!-- Fast 基础模块 -->
+            <dependency>
+                <groupId>cc.oofo</groupId>
+                <artifactId>fast-framework</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Fast 数据库模块 -->
+            <dependency>
+                <groupId>cc.oofo</groupId>
+                <artifactId>fast-database</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Fast 鉴权模块 -->
+            <dependency>
+                <groupId>cc.oofo</groupId>
+                <artifactId>fast-auth</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Fast 工具模块 -->
+            <dependency>
+                <groupId>cc.oofo</groupId>
+                <artifactId>fast-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Fast 缓存模块 -->
+            <dependency>
+                <groupId>cc.oofo</groupId>
+                <artifactId>fast-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Fast 系统模块 -->
+            <dependency>
+                <groupId>cc.oofo</groupId>
+                <artifactId>fast-system</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

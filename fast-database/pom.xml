@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cc.oofo</groupId>
+        <artifactId>fast-admin</artifactId>
+        <version>0.0.1-dev</version>
+    </parent>
+
+    <groupId>cc.oofo</groupId>
+    <artifactId>fast-database</artifactId>
+    <description>Fast 数据库管理模块</description>
+
+    <dependencies>
+        <!-- PostgreSQL 数据库驱动 -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <!-- MyBatis-Plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+        </dependency>
+        <!-- Fast 工具模块 -->
+        <dependency>
+            <groupId>cc.oofo</groupId>
+            <artifactId>fast-utils</artifactId>
+        </dependency>
+
+        <!-- SaToken 鉴权 -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot3-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>

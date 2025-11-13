@@ -1,0 +1,12 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: fast-application
+  profiles:
+    include:
+      - logging
+      - redis
+      - auth
+      - mybatis
+      - database

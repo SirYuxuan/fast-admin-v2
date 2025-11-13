@@ -1,0 +1,5 @@
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-value: true
+      logic-not-delete-value: false

@@ -1,0 +1,14 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "editor.formatOnSave": true,
+    "java.saveActions.organizeImports": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.removeUnusedImports": "explicit"
+    },
+    "[xml]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "redhat.vscode-xml"
+    }
+}

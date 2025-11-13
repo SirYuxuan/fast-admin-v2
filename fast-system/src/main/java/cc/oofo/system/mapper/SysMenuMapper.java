@@ -1,0 +1,26 @@
+package cc.oofo.system.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import cc.oofo.framework.base.BaseMapper;
+import cc.oofo.system.entity.SysMenu;
+
+/**
+ * 系统菜单 Mapper 接口
+ * 
+ * @author Sir丶雨轩
+ * @since 2025/11/13
+ */
+@Mapper
+public interface SysMenuMapper extends BaseMapper<SysMenu> {
+
+    /**
+     * 根据用户ID查询所有有权限的菜单
+     * 
+     * @param userId 用户ID
+     * @return 菜单列表
+     */
+    List<SysMenu> selectAllByUserId(String userId);
+}
