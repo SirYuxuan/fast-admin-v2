@@ -14,11 +14,12 @@
     <description>Fast 数据库管理模块</description>
 
     <dependencies>
-        <!-- PostgreSQL 数据库驱动 -->
+        <!-- MySQL 数据库驱动 -->
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
+
         <!-- MyBatis-Plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
