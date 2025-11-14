@@ -33,6 +33,9 @@ public class EntityMetaObjectHandler implements MetaObjectHandler {
         this.strictInsertFill(metaObject, "createdBy", String.class, getNickName());
         this.strictInsertFill(metaObject, "createdId", String.class, getId());
         this.strictInsertFill(metaObject, "isDeleted", Boolean.class, false);
+        this.strictInsertFill(metaObject, "updatedAt", Timestamp.class, new Timestamp(System.currentTimeMillis()));
+        this.strictInsertFill(metaObject, "updatedBy", String.class, getNickName());
+        this.strictInsertFill(metaObject, "updatedId", String.class, getId());
 
     }
 

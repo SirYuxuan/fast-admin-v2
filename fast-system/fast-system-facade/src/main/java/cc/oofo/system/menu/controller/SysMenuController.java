@@ -92,9 +92,8 @@ public class SysMenuController extends BaseController<SysMenuService> {
      * @param menuSaveDto 菜单保存DTO
      * @return 操作结果
      */
-    @PutMapping(path = "/{id}")
-    public Rs<Void> update(@PathVariable String id, @RequestBody SysMenuSaveDto menuSaveDto) {
-        menuSaveDto.setId(id);
+    @PutMapping
+    public Rs<Void> update(@RequestBody SysMenuSaveDto menuSaveDto) {
         baseService.update(menuSaveDto);
         return Rs.ok();
     }

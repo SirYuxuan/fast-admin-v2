@@ -1,8 +1,13 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "automatic",
-    "editor.formatOnSave": true,
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.debug.settings.console": "integratedTerminal",
+    "java.debug.settings.hotCodeReplace": "auto",
+    "java.format.enabled": true,
     "java.saveActions.organizeImports": true,
+    "spring-boot.ls.problem.application-properties.enabled": true,
+    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit",
         "source.removeUnusedImports": "explicit"
@@ -10,5 +15,23 @@
     "[xml]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "redhat.vscode-xml"
-    }
+    },
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java",
+        "editor.formatOnSave": true
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[yml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "files.associations": {
+        "*.yml": "yaml",
+        "*.yaml": "yaml"
+    },
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "maven.terminal.useJavaHome": true,
+    "maven.executable.path": "mvn",
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m"
 }

@@ -1,5 +1,8 @@
 package cc.oofo.auth.authentication.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +36,16 @@ public class AuthController extends BaseController<AuthService> {
         LoginRsDto loginResult = new LoginRsDto();
         loginResult.setAccessToken(baseService.login(loginDto));
         return Rs.ok(loginResult);
+    }
+
+    /**
+     * 获取当前用户的权限编码列表
+     * 
+     * @return 权限编码列表
+     */
+    @GetMapping(path = "/codes")
+    public Rs<List<String>> codes() {
+        return Rs.ok(baseService.codes());
     }
 
     /**

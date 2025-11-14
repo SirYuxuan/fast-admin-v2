@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cc.oofo.system.mapper.SysMenuMapper">
+<mapper namespace="cc.oofo.system.menu.mapper.SysMenuMapper">
 
     <!-- 结果映射 -->
-    <resultMap id="SysMenuResultMap" type="cc.oofo.system.entity.SysMenu">
+    <resultMap id="SysMenuResultMap" type="cc.oofo.system.menu.entity.SysMenu">
         <id column="id" property="id" />
         <result column="pid" property="pid" />
         <result column="name" property="name" />

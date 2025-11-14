@@ -21,7 +21,7 @@ public class Rs<T> {
     /**
      * 数据
      */
-    private T data;
+    private Object data;
 
     /**
      * 成功响应
