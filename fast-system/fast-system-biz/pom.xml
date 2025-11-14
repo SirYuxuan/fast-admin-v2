@@ -25,7 +25,11 @@
             <groupId>cc.oofo</groupId>
             <artifactId>fast-framework</artifactId>
         </dependency>
-
+        <!-- 依赖框架模块 -->
+        <dependency>
+            <groupId>cc.oofo</groupId>
+            <artifactId>fast-database</artifactId>
+        </dependency>
 
     </dependencies>
 </project>

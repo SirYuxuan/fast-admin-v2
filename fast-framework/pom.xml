@@ -13,10 +13,17 @@
     <artifactId>fast-framework</artifactId>
 
     <dependencies>
-        <!-- Fast 数据库模块 -->
+
+        <!-- Fast Utils -->
         <dependency>
             <groupId>cc.oofo</groupId>
-            <artifactId>fast-database</artifactId>
+            <artifactId>fast-utils</artifactId>
+        </dependency>
+        <!-- MyBatis-Plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Lombok-->
