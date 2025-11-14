@@ -22,7 +22,11 @@
             <groupId>com.github.ksuid</groupId>
             <artifactId>ksuid</artifactId>
         </dependency>
-
+        <!-- 暂时只依赖基础组件 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

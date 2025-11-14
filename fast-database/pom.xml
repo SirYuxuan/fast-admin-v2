@@ -37,6 +37,8 @@
             <artifactId>sa-token-spring-boot3-starter</artifactId>
             <scope>provided</scope>
         </dependency>
+
+
     </dependencies>
 
 </project>

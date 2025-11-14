@@ -1,13 +1,14 @@
 package cc.oofo.database.handlers;
 
-import java.lang.reflect.Field;
 import java.sql.Timestamp;
 
 import org.apache.ibatis.reflection.MetaObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 
+import cc.oofo.database.provider.UserInfoProvider;
 import cc.oofo.utils.IdUtil;
 import cn.dev33.satoken.spring.SpringMVCUtil;
 import cn.dev33.satoken.stp.StpUtil;
@@ -21,7 +22,8 @@ import cn.dev33.satoken.stp.StpUtil;
 @Component
 public class EntityMetaObjectHandler implements MetaObjectHandler {
 
-    private static final String USER_INFO = "userInfo";
+    @Autowired(required = false)
+    private UserInfoProvider userInfoProvider;
 
     /**
      * 插入填充
@@ -68,31 +70,8 @@ public class EntityMetaObjectHandler implements MetaObjectHandler {
      * @return 昵称
      */
     public String getNickName() {
-        if (SpringMVCUtil.isWeb() && StpUtil.isLogin()) {
-            Object user = StpUtil.getSession().get(USER_INFO);
-            if (user != null) {
-                return extractNickname(user);
-            }
-        }
-        return "系统管理员";
-    }
-
-    /**
-     * 从用户对象中提取昵称
-     * 
-     * @param user 用户对象
-     * @return 昵称
-     */
-    private String extractNickname(Object user) {
-        try {
-            Field field = user.getClass().getDeclaredField("nickname");
-            field.setAccessible(true);
-            Object value = field.get(user);
-            if (value instanceof String && !((String) value).isEmpty()) {
-                return (String) value;
-            }
-        } catch (Exception e) {
-            // 忽略反射异常
+        if (userInfoProvider != null && SpringMVCUtil.isWeb() && StpUtil.isLogin()) {
+            return userInfoProvider.getNicknameById(StpUtil.getLoginIdAsString());
         }
         return "系统管理员";
     }

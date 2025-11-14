@@ -26,4 +26,5 @@ public interface SysUserApi {
      * @return 权限编码列表
      */
     List<String> getUserPermissionCodes(String userId);
+
 }
