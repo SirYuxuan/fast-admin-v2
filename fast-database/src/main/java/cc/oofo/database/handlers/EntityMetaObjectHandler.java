@@ -3,15 +3,16 @@ package cc.oofo.database.handlers;
 import java.sql.Timestamp;
 
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 
-import cc.oofo.database.provider.UserInfoProvider;
 import cc.oofo.utils.IdUtil;
+import cc.oofo.utils.RedisUtil;
+import cc.oofo.utils.constants.RedisKeys;
 import cn.dev33.satoken.spring.SpringMVCUtil;
 import cn.dev33.satoken.stp.StpUtil;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 实体元对象处理器
@@ -20,10 +21,10 @@ import cn.dev33.satoken.stp.StpUtil;
  * @since 2025/11/13
  */
 @Component
+@RequiredArgsConstructor
 public class EntityMetaObjectHandler implements MetaObjectHandler {
 
-    @Autowired(required = false)
-    private UserInfoProvider userInfoProvider;
+    private final RedisUtil redisUtil;
 
     /**
      * 插入填充
@@ -70,8 +71,9 @@ public class EntityMetaObjectHandler implements MetaObjectHandler {
      * @return 昵称
      */
     public String getNickName() {
-        if (userInfoProvider != null && SpringMVCUtil.isWeb() && StpUtil.isLogin()) {
-            return userInfoProvider.getNicknameById(StpUtil.getLoginIdAsString());
+        if (SpringMVCUtil.isWeb() && StpUtil.isLogin()) {
+            Object nickName = redisUtil.getVal(RedisKeys.SYSTEM_USER_NICKNAME_PREFIX + StpUtil.getLoginIdAsString());
+            return nickName != null ? nickName.toString() : "系统管理员";
         }
         return "系统管理员";
     }

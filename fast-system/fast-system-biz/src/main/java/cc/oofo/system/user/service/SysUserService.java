@@ -7,7 +7,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import cc.oofo.database.provider.UserInfoProvider;
 import cc.oofo.framework.core.service.BaseService;
 import cc.oofo.system.menu.entity.SysMenu;
 import cc.oofo.system.menu.mapper.SysMenuMapper;
@@ -25,7 +24,7 @@ import jakarta.annotation.Resource;
  * @since 2025/11/13
  */
 @Service
-public class SysUserService extends BaseService<SysUser> implements SysUserApi, UserInfoProvider {
+public class SysUserService extends BaseService<SysUser> implements SysUserApi {
 
     @Resource
     private SysMenuMapper sysMenuMapper;
@@ -61,6 +60,7 @@ public class SysUserService extends BaseService<SysUser> implements SysUserApi, 
         authUserDto.setUsername(user.getUsername());
         authUserDto.setPassword(user.getPassword());
         authUserDto.setStatus(user.getStatus());
+        authUserDto.setNickname(user.getNickname());
         return authUserDto;
     }
 
@@ -80,15 +80,4 @@ public class SysUserService extends BaseService<SysUser> implements SysUserApi, 
                 .collect(Collectors.toList());
     }
 
-    /**
-     * 根据用户ID获取用户昵称
-     * 
-     * @param userId 用户ID
-     * @return 用户昵称
-     */
-    @Override
-    public String getNicknameById(String userId) {
-        SysUser user = getById(userId);
-        return user != null ? user.getNickname() : "未知用户";
-    }
 }

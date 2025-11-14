@@ -12,6 +12,11 @@
     <groupId>cc.oofo</groupId>
     <artifactId>fast-utils</artifactId>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- jBCrypt 密码加密 -->
         <dependency>
             <groupId>org.mindrot</groupId>

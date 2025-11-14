@@ -35,6 +35,11 @@
             <groupId>cc.oofo</groupId>
             <artifactId>fast-system-api</artifactId>
         </dependency>
+        <!-- Fast 缓存模块 -->
+        <dependency>
+            <groupId>cc.oofo</groupId>
+            <artifactId>fast-cache</artifactId>
+        </dependency>
 
 
     </dependencies>

@@ -9,6 +9,8 @@ import cc.oofo.framework.exception.BizException;
 import cc.oofo.system.user.api.SysUserApi;
 import cc.oofo.system.user.dto.AuthUserDto;
 import cc.oofo.utils.PasswordUtil;
+import cc.oofo.utils.RedisUtil;
+import cc.oofo.utils.constants.RedisKeys;
 import cn.dev33.satoken.stp.StpUtil;
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthService {
 
     private final SysUserApi sysUserApi;
+    private final RedisUtil redisUtil;
 
     /**
      * 用户登录
@@ -49,6 +52,9 @@ public class AuthService {
 
         // 4. 生成 token
         StpUtil.login(authUser.getId());
+        // 5. 保存用户昵称
+        redisUtil.setVal(RedisKeys.SYSTEM_USER_NICKNAME_PREFIX + authUser.getId(),
+                authUser.getNickname());
         return StpUtil.getTokenValue();
     }
 

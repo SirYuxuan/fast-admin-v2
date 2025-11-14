@@ -38,6 +38,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Redis 数据库 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
