@@ -22,7 +22,7 @@
             <!-- Fast 系统模块 -->
             <dependency>
                   <groupId>cc.oofo</groupId>
-                  <artifactId>fast-system</artifactId>
+                  <artifactId>fast-system-facade</artifactId>
             </dependency>
 
 

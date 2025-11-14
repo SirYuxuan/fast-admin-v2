@@ -3,9 +3,9 @@ package cc.oofo.auth.authentication.service;
 import org.springframework.stereotype.Service;
 
 import cc.oofo.auth.authentication.dto.LoginDto;
-import cc.oofo.framework.base.BaseService;
+import cc.oofo.framework.core.service.BaseService;
 import cc.oofo.framework.exception.BizException;
-import cc.oofo.framework.utils.StpUtil;
+import cc.oofo.framework.security.auth.StpUtil;
 import cc.oofo.system.user.entity.SysUser;
 import cc.oofo.system.user.entity.enums.SysUserStatus;
 import cc.oofo.utils.PasswordUtil;

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import cc.oofo.auth.authentication.dto.LoginDto;
 import cc.oofo.auth.authentication.dto.LoginRsDto;
 import cc.oofo.auth.authentication.service.AuthService;
-import cc.oofo.framework.base.BaseController;
-import cc.oofo.framework.base.resp.Rs;
+import cc.oofo.framework.core.controller.BaseController;
+import cc.oofo.framework.web.response.Rs;
 import cn.dev33.satoken.stp.StpUtil;
 
 /**

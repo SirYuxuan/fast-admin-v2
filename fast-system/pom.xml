@@ -3,28 +3,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>cc.oofo</groupId>
         <artifactId>fast-admin</artifactId>
         <version>0.0.1-dev</version>
     </parent>
 
-    <groupId>cc.oofo</groupId>
     <artifactId>fast-system</artifactId>
+    <packaging>pom</packaging>
+    <description>系统管理模块</description>
 
-    <dependencies>
-        <!-- Fast 框架模块 -->
-        <dependency>
-            <groupId>cc.oofo</groupId>
-            <artifactId>fast-framework</artifactId>
-        </dependency>
-
-        <!-- SpringBoot WEB -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
+    <modules>
+        <module>fast-system-api</module>
+        <module>fast-system-biz</module>
+        <module>fast-system-facade</module>
+    </modules>
 </project>

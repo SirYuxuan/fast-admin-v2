@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-import cc.oofo.framework.base.resp.HttpCode;
-import cc.oofo.framework.base.resp.Rs;
 import cc.oofo.framework.exception.BizException;
+import cc.oofo.framework.web.response.HttpCode;
+import cc.oofo.framework.web.response.Rs;
 import cn.dev33.satoken.exception.NotLoginException;
 import lombok.extern.slf4j.Slf4j;
 

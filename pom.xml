@@ -18,13 +18,13 @@
     </parent>
 
     <modules>
+        <module>fast-utils</module>
+        <module>fast-database</module>
         <module>fast-framework</module>
         <module>fast-cache</module>
-        <module>fast-application</module>
         <module>fast-system</module>
         <module>fast-auth</module>
-        <module>fast-database</module>
-        <module>fast-utils</module>
+        <module>fast-application</module>
     </modules>
 
 
@@ -118,7 +118,17 @@
             <!-- Fast 系统模块 -->
             <dependency>
                 <groupId>cc.oofo</groupId>
-                <artifactId>fast-system</artifactId>
+                <artifactId>fast-system-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.oofo</groupId>
+                <artifactId>fast-system-biz</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cc.oofo</groupId>
+                <artifactId>fast-system-facade</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
