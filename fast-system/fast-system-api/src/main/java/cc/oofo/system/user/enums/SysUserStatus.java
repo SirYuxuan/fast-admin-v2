@@ -1,7 +1,6 @@
-package cc.oofo.system.user.entity.enums;
+package cc.oofo.system.user.enums;
 
 import java.util.Objects;
-
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
 /**

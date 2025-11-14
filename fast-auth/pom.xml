@@ -33,7 +33,7 @@
         <!-- Fast 系统模块 -->
         <dependency>
             <groupId>cc.oofo</groupId>
-            <artifactId>fast-system-biz</artifactId>
+            <artifactId>fast-system-api</artifactId>
         </dependency>
         <!-- Fast 缓存模块 -->
         <dependency>

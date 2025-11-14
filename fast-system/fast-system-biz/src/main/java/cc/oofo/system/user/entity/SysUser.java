@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import cc.oofo.framework.core.entity.BaseEntity;
 import cc.oofo.system.user.entity.enums.SysUserSex;
-import cc.oofo.system.user.entity.enums.SysUserStatus;
+import cc.oofo.system.user.enums.SysUserStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

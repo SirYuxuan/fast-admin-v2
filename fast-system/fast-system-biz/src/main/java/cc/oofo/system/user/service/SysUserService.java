@@ -4,12 +4,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import cc.oofo.framework.core.service.BaseService;
-import cc.oofo.framework.security.auth.StpUtil;
+import cc.oofo.system.user.dto.SysUserInfoDto;
 import cc.oofo.system.user.entity.SysUser;
-import cc.oofo.system.user.entity.dto.SysUserInfoDto;
+import cn.dev33.satoken.stp.StpUtil;
 
 /**
- * 系统用户服务类
+ * 系统用户服务实现类
  * 
  * @author Sir丶雨轩
  * @since 2025/11/13
@@ -24,7 +24,7 @@ public class SysUserService extends BaseService<SysUser> {
      */
     public SysUserInfoDto info() {
         // 获取当前登录用户
-        SysUser user = getById(StpUtil.getLoginId());
+        SysUser user = getById(StpUtil.getLoginIdAsString());
         SysUserInfoDto userInfoDto = new SysUserInfoDto();
         BeanUtils.copyProperties(user, userInfoDto);
         return userInfoDto;

@@ -15,7 +15,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import cc.oofo.framework.core.service.BaseService;
 import cc.oofo.framework.exception.BizException;
-import cc.oofo.framework.security.auth.StpUtil;
 import cc.oofo.system.menu.entity.SysMenu;
 import cc.oofo.system.menu.entity.dto.SysMenuDto;
 import cc.oofo.system.menu.entity.dto.SysMenuSaveDto;
@@ -23,6 +22,7 @@ import cc.oofo.system.menu.entity.enums.SysMenuStatus;
 import cc.oofo.system.menu.entity.enums.SysMenuType;
 import cc.oofo.system.menu.mapper.SysMenuMapper;
 import cc.oofo.system.permission.entity.SysRolesMenus;
+import cn.dev33.satoken.stp.StpUtil;
 import jakarta.annotation.Resource;
 
 /**
@@ -46,7 +46,7 @@ public class SysMenuService extends BaseService<SysMenu> {
      */
     public List<SysMenuDto> userMenu() {
         // 查询当前用户有权限的所有菜单
-        List<SysMenu> menuList = sysMenuMapper.selectAllByUserId(StpUtil.getLoginId());
+        List<SysMenu> menuList = sysMenuMapper.selectAllByUserId(StpUtil.getLoginIdAsString());
 
         // 转换为DTO并构建树形结构
         return buildMenuTree(menuList, false);

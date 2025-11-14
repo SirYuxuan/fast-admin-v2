@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cc.oofo.framework.core.controller.BaseController;
 import cc.oofo.framework.web.response.Rs;
-import cc.oofo.system.user.entity.dto.SysUserInfoDto;
+import cc.oofo.system.user.dto.SysUserInfoDto;
 import cc.oofo.system.user.service.SysUserService;
 
 /**

@@ -2,8 +2,6 @@ package cc.oofo.system.menu.entity.dto;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import lombok.Data;
 
 /**
@@ -13,7 +11,6 @@ import lombok.Data;
  * @since 2025/11/13
  */
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SysMenuDto {
 
     /**
@@ -70,7 +67,6 @@ public class SysMenuDto {
      * 菜单元数据内部类
      */
     @Data
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class MenuMeta {
 
         /**
