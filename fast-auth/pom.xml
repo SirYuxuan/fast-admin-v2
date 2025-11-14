@@ -40,6 +40,8 @@
             <groupId>cc.oofo</groupId>
             <artifactId>fast-cache</artifactId>
         </dependency>
+
+
     </dependencies>
 
 </project>

@@ -1,0 +1,47 @@
+{
+  "properties": [
+    {
+      "name": "cors.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用CORS跨域配置",
+      "defaultValue": true
+    },
+    {
+      "name": "cors.allowed-origins",
+      "type": "java.util.List<java.lang.String>",
+      "description": "允许跨域的源地址列表"
+    },
+    {
+      "name": "cors.allowed-headers",
+      "type": "java.util.List<java.lang.String>",
+      "description": "允许的请求头列表"
+    },
+    {
+      "name": "cors.allowed-methods",
+      "type": "java.util.List<java.lang.String>",
+      "description": "允许的HTTP方法列表"
+    },
+    {
+      "name": "cors.allow-credentials",
+      "type": "java.lang.Boolean",
+      "description": "是否允许发送Cookie凭证",
+      "defaultValue": true
+    },
+    {
+      "name": "cors.max-age",
+      "type": "java.lang.Long",
+      "description": "预检请求的缓存时间（秒）",
+      "defaultValue": 3600
+    },
+    {
+      "name": "interceptor.auth.include-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "认证拦截器包含的路径模式"
+    },
+    {
+      "name": "interceptor.auth.exclude-patterns",
+      "type": "java.util.List<java.lang.String>",
+      "description": "认证拦截器排除的路径模式"
+    }
+  ]
+}
