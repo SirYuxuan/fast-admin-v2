@@ -34,8 +34,9 @@ public class SysUserService extends BaseService<SysUser> implements SysUserApi {
      * 
      * @return 用户信息
      */
+    @SuppressWarnings("null")
     public SysUserInfoDto info() {
-        // 获取当前登录用户
+        // 获取当前登录用户w
         SysUser user = getById(StpUtil.getLoginIdAsString());
         SysUserInfoDto userInfoDto = new SysUserInfoDto();
         BeanUtils.copyProperties(user, userInfoDto);

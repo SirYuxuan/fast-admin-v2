@@ -25,7 +25,7 @@ import cc.oofo.system.menu.service.SysMenuService;
  * @since 2025/11/13
  */
 @RestController
-@RequestMapping(path = "/sysMenu")
+@RequestMapping(path = "/system/menu")
 public class SysMenuController extends BaseController<SysMenuService> {
 
     /**
@@ -103,7 +103,7 @@ public class SysMenuController extends BaseController<SysMenuService> {
      * 
      * @return 菜单树结果
      */
-    @GetMapping(path = "/list")
+    @GetMapping
     public Rs<List<SysMenuDto>> list() {
         return Rs.ok(baseService.buildMenuTree(baseService.list(), true));
     }

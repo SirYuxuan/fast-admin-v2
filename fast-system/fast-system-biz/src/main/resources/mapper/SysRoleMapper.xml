@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.oofo.system.role.mapper.SysRoleMapper">
+
+    <!-- 角色结果映射（带权限） -->
+    <resultMap id="roleWithPermissions" type="cc.oofo.system.role.entity.dto.SysRoleDto">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="code" column="code" />
+        <result property="remark" column="remark" />
+        <result property="isEnabled" column="is_enabled" />
+        <!-- status字段基于isEnabled计算：1启用，0禁用 -->
+        <result property="status" column="is_enabled" />
+        <result property="createTime" column="created_at" />
+        <result property="updateTime" column="updated_at" />
+        <collection property="permissions" ofType="java.lang.String">
+            <result column="menu_id" />
+        </collection>
+    </resultMap>
+
+    <!-- 查询条件 -->
+    <sql id="roleWhere">
+        <where>
+            <!-- 根据ID精确查询 -->
+            <if test="query.id != null and query.id != ''"> AND id = #{query.id} </if>
+            <!-- 根据角色名称模糊查询 -->
+            <if
+                test="query.name != null and query.name != ''"> AND name LIKE CONCAT('%',
+        #{query.name}, '%') </if>
+            <!-- 根据角色状态查询 -->
+            <if
+                test="query.status != null"> AND is_enabled = #{query.status} </if>
+            <!-- 根据角色备注模糊查询 -->
+            <if
+                test="query.remark != null and query.remark != ''"> AND remark LIKE CONCAT('%',
+        #{query.remark}, '%') </if>
+            <!-- 根据创建时间范围查询 -->
+            <if
+                test="query.startTime != null">
+                <![CDATA[ AND DATE(created_at) >= #{query.startTime} ]]>
+            </if>
+            <if test="query.endTime != null">
+                <![CDATA[ AND DATE(created_at) <= #{query.endTime} ]]>
+            </if>
+        </where>
+    </sql>
+
+    <!-- 分页查询角色列表（带权限） -->
+    <select id="listRoleWithPermissions" resultMap="roleWithPermissions"> SELECT r.*, rm.menu_id
+        FROM sys_role r LEFT JOIN sys_roles_menus rm ON rm.role_id = r.id <include refid="roleWhere" />
+        ORDER BY r.created_at DESC, r.id, rm.menu_id <if test="query.pageSize != null"> LIMIT
+        #{query.pageSize} <if test="query.page != null and query.page != 1"> OFFSET
+        #{query.pageSize} * (#{query.page} - 1) </if>
+        </if>
+    </select>
+
+    <!-- 统计角色数量（不需要关联权限表） -->
+    <select id="countRoleWithPermissions" resultType="java.lang.Long"> SELECT COUNT(*) FROM sys_role <include
+            refid="roleWhere" />
+    </select>
+
+</mapper>

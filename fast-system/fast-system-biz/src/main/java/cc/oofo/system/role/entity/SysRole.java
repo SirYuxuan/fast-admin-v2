@@ -1,5 +1,8 @@
 package cc.oofo.system.role.entity;
 
+import java.util.Set;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import cc.oofo.framework.core.entity.BaseEntity;
@@ -33,5 +36,11 @@ public class SysRole extends BaseEntity<SysRole> {
      * 是否启用
      */
     private Boolean isEnabled;
+
+    /**
+     * 角色对应的权限列表
+     */
+    @TableField(exist = false)
+    private Set<String> permissions;
 
 }

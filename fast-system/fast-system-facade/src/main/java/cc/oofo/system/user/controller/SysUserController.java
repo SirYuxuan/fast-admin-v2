@@ -16,7 +16,7 @@ import cc.oofo.system.user.service.SysUserService;
  * @since 2025/11/13
  */
 @RestController
-@RequestMapping(path = "/sysUser")
+@RequestMapping(path = "/system/user")
 public class SysUserController extends BaseController<SysUserService> {
     /**
      * 获取用户信息

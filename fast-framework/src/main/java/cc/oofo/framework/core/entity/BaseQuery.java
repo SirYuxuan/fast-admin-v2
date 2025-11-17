@@ -15,7 +15,7 @@ public class BaseQuery<T> {
     /**
      * 分页 每页大小
      */
-    private long size;
+    private long pageSize;
 
     private final QueryWrapper<T> queryWrapper = new QueryWrapper<>();
 
@@ -24,8 +24,16 @@ public class BaseQuery<T> {
      *
      * @return 分页对象
      */
-    public Page<T> getPage() {
-        return new Page<T>(page, size);
+    public Page<T> getMPPage() {
+        return new Page<T>(page, pageSize);
     }
 
+    /**
+     * 获取MyBatis的分页对象
+     *
+     * @return 分页对象
+     */
+    public <E> Page<E> getMPPage(Class<E> clazz) {
+        return new Page<E>(page, pageSize);
+    }
 }

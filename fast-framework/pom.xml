@@ -25,6 +25,12 @@
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- MyBatis-Plus Join -->
+        <dependency>
+            <groupId>com.github.yulichang</groupId>
+            <artifactId>mybatis-plus-join-boot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Lombok-->
         <dependency>

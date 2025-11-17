@@ -37,6 +37,7 @@
         <ksuid.version>1.1.4</ksuid.version>
         <postgresql.version>42.7.8</postgresql.version>
         <mysql.connector.version>8.0.33</mysql.connector.version>
+        <mybatis.plus.join.version>1.5.4</mybatis.plus.join.version>
     </properties>
 
     <dependencyManagement>
@@ -77,6 +78,12 @@
                 <artifactId>sa-token-spring-boot3-starter</artifactId>
                 <version>${sa.token.version}</version>
             </dependency>
+            <!-- MyBatis-Plus Join -->
+            <dependency>
+                <groupId>com.github.yulichang</groupId>
+                <artifactId>mybatis-plus-join-boot-starter</artifactId>
+                <version>${mybatis.plus.join.version}</version>
+            </dependency>
             <!-- MyBatis-Plus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -87,6 +94,12 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <!-- MyBatis-Plus JSQLParser -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
                 <version>${mybatis.plus.version}</version>
             </dependency>
 

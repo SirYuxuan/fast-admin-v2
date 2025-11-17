@@ -28,7 +28,7 @@ import cc.oofo.system.dept.service.SysDeptService;
  * @since 2025/11/14
  */
 @RestController
-@RequestMapping(path = "/sysDept")
+@RequestMapping(path = "/system/dept")
 public class SysDeptController extends BaseController<SysDeptService> {
 
     /**
