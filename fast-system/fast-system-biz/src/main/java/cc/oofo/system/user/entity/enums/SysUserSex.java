@@ -3,6 +3,7 @@ package cc.oofo.system.user.entity.enums;
 import java.util.Objects;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * 系统用户性别枚举
@@ -26,6 +27,7 @@ public enum SysUserSex {
     UNKNOWN(0, "未知");
 
     @EnumValue
+    @JsonValue
     private final Integer value;
     private String name;
 

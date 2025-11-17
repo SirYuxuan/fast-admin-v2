@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.oofo.system.user.mapper.SysUserMapper">
+
+    <!-- 用户结果映射（带角色） -->
+    <resultMap id="userWithRoles" type="cc.oofo.system.user.entity.dto.SysUserDto">
+        <id property="id" column="id" />
+        <result property="username" column="username" />
+        <result property="email" column="email" />
+        <result property="phone" column="phone" />
+        <result property="nickname" column="nickname" />
+        <result property="sex" column="sex" />
+        <result property="status" column="status" />
+        <result property="loginIp" column="login_ip" />
+        <result property="loginCity" column="login_city" />
+        <result property="loginTime" column="login_time" />
+        <result property="createTime" column="created_at" />
+        <collection property="roles" ofType="java.lang.String">
+            <result column="role_id" />
+        </collection>
+    </resultMap>
+
+    <!-- 查询条件 -->
+    <sql id="userWhere">
+        <where>
+            <if test="query.id != null and query.id != ''"> AND u.id = #{query.id} </if>
+            <if
+                test="query.username != null and query.username != ''"> AND u.username LIKE
+        CONCAT('%', #{query.username}, '%') </if>
+            <if
+                test="query.email != null and query.email != ''"> AND u.email LIKE CONCAT('%',
+        #{query.email}, '%') </if>
+            <if test="query.phone != null and query.phone != ''"> AND u.phone
+        LIKE CONCAT('%', #{query.phone}, '%') </if>
+            <if test="query.sex != null"> AND u.sex =
+        #{query.sex} </if>
+            <if test="query.status != null"> AND u.status = #{query.status} </if>
+            <if
+                test="query.loginCity != null and query.loginCity != ''"> AND u.login_city LIKE
+        CONCAT('%', #{query.loginCity}, '%') </if>
+            <if test="query.startTime != null">
+                <![CDATA[ AND DATE(u.created_at) >= #{query.startTime} ]]>
+            </if>
+            <if
+                test="query.endTime != null">
+                <![CDATA[ AND DATE(u.created_at) <= #{query.endTime} ]]>
+            </if>
+        </where>
+    </sql>
+
+    <!-- 分页查询用户列表（带角色） -->
+    <select id="listUserWithRoles" resultMap="userWithRoles"> SELECT u.*, ur.role_id FROM sys_user u
+        LEFT JOIN sys_users_roles ur ON ur.user_id = u.id <include refid="userWhere" /> ORDER BY
+        u.created_at DESC, u.id, ur.role_id <if test="query.pageSize != null"> LIMIT
+        #{query.pageSize} <if test="query.page != null and query.page != 1"> OFFSET
+        #{query.pageSize} * (#{query.page} - 1) </if>
+        </if>
+    </select>
+
+    <!-- 统计用户数量 -->
+    <select id="countUserWithRoles" resultType="java.lang.Long"> SELECT COUNT(*) FROM sys_user u <include
+            refid="userWhere" />
+    </select>
+
+</mapper>

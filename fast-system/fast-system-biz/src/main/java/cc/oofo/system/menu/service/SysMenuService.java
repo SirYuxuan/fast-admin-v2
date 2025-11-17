@@ -275,6 +275,11 @@ public class SysMenuService extends BaseService<SysMenu> {
      * @return 菜单DTO
      */
     private SysMenuDto convertToDto(SysMenu menu) {
+
+        if (menu == null) {
+            throw new BizException("菜单不存在");
+        }
+
         SysMenuDto dto = new SysMenuDto();
         BeanUtils.copyProperties(menu, dto);
 
@@ -307,7 +312,7 @@ public class SysMenuService extends BaseService<SysMenu> {
     }
 
     /**
-     * 递归排序菜单
+     * 递归排序菜单 从菜单的order字段进行排序，按照升序排列从小到大
      * 
      * @param menus 菜单列表
      */

@@ -1,5 +1,7 @@
 package cc.oofo.system.role.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,7 @@ import cc.oofo.framework.web.response.Ps;
 import cc.oofo.framework.web.response.Rs;
 import cc.oofo.system.role.entity.dto.SysRoleDto;
 import cc.oofo.system.role.entity.dto.SysRoleSaveDto;
+import cc.oofo.system.role.entity.dto.SysRoleSelectDto;
 import cc.oofo.system.role.entity.query.SysRoleQuery;
 import cc.oofo.system.role.service.SysRoleService;
 
@@ -36,6 +39,16 @@ public class SysRoleController extends BaseController<SysRoleService> {
     @GetMapping
     public Ps<SysRoleDto> list(SysRoleQuery query) {
         return Ps.ok(baseService.list(query), baseService.count(query));
+    }
+
+    /**
+     * 获取角色下拉列表
+     * 
+     * @return 角色下拉列表
+     */
+    @GetMapping(path = "/select")
+    public Rs<List<SysRoleSelectDto>> listRoleSelect() {
+        return Rs.ok(baseService.listRoleSelect());
     }
 
     /**

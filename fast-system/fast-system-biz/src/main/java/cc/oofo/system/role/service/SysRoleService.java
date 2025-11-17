@@ -1,9 +1,11 @@
 package cc.oofo.system.role.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -14,9 +16,11 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import cc.oofo.framework.core.service.BaseService;
 import cc.oofo.framework.exception.BizException;
 import cc.oofo.system.permission.entity.SysRolesMenus;
+import cc.oofo.system.permission.mapper.SysRolesMenusMapper;
 import cc.oofo.system.role.entity.SysRole;
 import cc.oofo.system.role.entity.dto.SysRoleDto;
 import cc.oofo.system.role.entity.dto.SysRoleSaveDto;
+import cc.oofo.system.role.entity.dto.SysRoleSelectDto;
 import cc.oofo.system.role.entity.query.SysRoleQuery;
 import cc.oofo.system.role.mapper.SysRoleMapper;
 
@@ -29,6 +33,9 @@ import cc.oofo.system.role.mapper.SysRoleMapper;
 @Service
 @Transactional
 public class SysRoleService extends BaseService<SysRole> {
+
+    @Autowired
+    private SysRolesMenusMapper sysRolesMenusMapper;
 
     /**
      * 获取角色列表
@@ -47,6 +54,21 @@ public class SysRoleService extends BaseService<SysRole> {
      */
     public Long count(SysRoleQuery query) {
         return ((SysRoleMapper) baseMapper).countRoleWithPermissions(query);
+    }
+
+    /**
+     * 获取角色下拉列表
+     * 
+     * @return 角色下拉列表
+     */
+    public List<SysRoleSelectDto> listRoleSelect() {
+        List<SysRole> roles = list(Wrappers.lambdaQuery(SysRole.class).eq(SysRole::getIsEnabled, true));
+        return roles.stream().map(role -> {
+            SysRoleSelectDto dto = new SysRoleSelectDto();
+            dto.setLabel(role.getName());
+            dto.setValue(role.getId());
+            return dto;
+        }).collect(Collectors.toList());
     }
 
     /**
@@ -71,16 +93,17 @@ public class SysRoleService extends BaseService<SysRole> {
 
         save(role);
 
-        // 处理权限关联
+        // 处理权限关联 - 批量插入
         if (roleSaveDto.getPermissions() != null && !roleSaveDto.getPermissions().isEmpty()) {
-            // 这里需要根据实际的权限关联表来实现
+            List<SysRolesMenus> rolesMenusList = new ArrayList<>();
             roleSaveDto.getPermissions().forEach(perm -> {
                 SysRolesMenus rolesMenus = new SysRolesMenus();
                 rolesMenus.setRoleId(role.getId());
                 rolesMenus.setMenuId(perm);
-                // 保存关联
-                rolesMenus.insert();
+                rolesMenusList.add(rolesMenus);
             });
+            // 批量保存关联 - 使用SQL批量插入
+            sysRolesMenusMapper.batchInsert(rolesMenusList);
         }
     }
 
@@ -108,15 +131,19 @@ public class SysRoleService extends BaseService<SysRole> {
             // 删除原始权限
             LambdaQueryWrapper<SysRolesMenus> wrapper = Wrappers.lambdaQuery(SysRolesMenus.class)
                     .eq(SysRolesMenus::getRoleId, role.getId());
-            new SysRolesMenus().delete(wrapper);
-            // 添加新的权限关联
-            roleSaveDto.getPermissions().forEach(perm -> {
-                SysRolesMenus rolesMenus = new SysRolesMenus();
-                rolesMenus.setRoleId(role.getId());
-                rolesMenus.setMenuId(perm);
-                // 保存关联
-                rolesMenus.insert();
-            });
+            sysRolesMenusMapper.delete(wrapper);
+            // 添加新的权限关联 - 批量插入
+            if (!roleSaveDto.getPermissions().isEmpty()) {
+                List<SysRolesMenus> rolesMenusList = new ArrayList<>();
+                roleSaveDto.getPermissions().forEach(perm -> {
+                    SysRolesMenus rolesMenus = new SysRolesMenus();
+                    rolesMenus.setRoleId(role.getId());
+                    rolesMenus.setMenuId(perm);
+                    rolesMenusList.add(rolesMenus);
+                });
+                // 批量保存关联 - 使用SQL批量插入
+                sysRolesMenusMapper.batchInsert(rolesMenusList);
+            }
         }
     }
 
@@ -129,7 +156,7 @@ public class SysRoleService extends BaseService<SysRole> {
         removeById(id);
         LambdaQueryWrapper<SysRolesMenus> wrapper = Wrappers.lambdaQuery(SysRolesMenus.class)
                 .eq(SysRolesMenus::getRoleId, id);
-        new SysRolesMenus().delete(wrapper);
+        sysRolesMenusMapper.delete(wrapper);
     }
 
     /**
@@ -167,7 +194,7 @@ public class SysRoleService extends BaseService<SysRole> {
         dto.setStatus(role.getIsEnabled() != null && role.getIsEnabled() ? 1 : 0);
 
         // 获取权限列表
-        List<SysRolesMenus> rolesMenusList = new SysRolesMenus()
+        List<SysRolesMenus> rolesMenusList = sysRolesMenusMapper
                 .selectList(Wrappers.lambdaQuery(SysRolesMenus.class)
                         .eq(SysRolesMenus::getRoleId, role.getId()));
 

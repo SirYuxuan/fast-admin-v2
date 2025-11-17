@@ -1,7 +1,9 @@
 package cc.oofo.system.user.enums;
 
 import java.util.Objects;
+
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * 系统用户状态枚举
@@ -25,6 +27,7 @@ public enum SysUserStatus {
     LOCKING(2, "锁定");
 
     @EnumValue
+    @JsonValue
     private final Integer value;
     private final String name;
 
