@@ -15,6 +15,8 @@
         <result property="loginCity" column="login_city" />
         <result property="loginTime" column="login_time" />
         <result property="createTime" column="created_at" />
+        <result property="deptId" column="dept_id" />
+        <result property="deptName" column="dept_name" />
         <collection property="roles" ofType="java.lang.String">
             <result column="role_id" />
         </collection>
@@ -23,10 +25,15 @@
     <!-- 查询条件 -->
     <sql id="userWhere">
         <where>
-            <if test="query.id != null and query.id != ''"> AND u.id = #{query.id} </if>
+            <!-- 默认排除已删除用户 --> AND u.is_deleted = false <if test="query.id != null and query.id != ''"> AND u.id =
+        #{query.id} </if>
+        <if test="query.deptId != null and query.deptId != ''"> and u.dept_id =
+        #{query.deptId} </if>
+            <if test="query.username != null and query.username != ''"> AND
+        u.username LIKE CONCAT('%', #{query.username}, '%') </if>
             <if
-                test="query.username != null and query.username != ''"> AND u.username LIKE
-        CONCAT('%', #{query.username}, '%') </if>
+                test="query.nickname != null and query.nickname != ''"> AND u.nickname LIKE
+        CONCAT('%', #{query.nickname}, '%') </if>
             <if
                 test="query.email != null and query.email != ''"> AND u.email LIKE CONCAT('%',
         #{query.email}, '%') </if>
@@ -49,11 +56,12 @@
     </sql>
 
     <!-- 分页查询用户列表（带角色） -->
-    <select id="listUserWithRoles" resultMap="userWithRoles"> SELECT u.*, ur.role_id FROM sys_user u
-        LEFT JOIN sys_users_roles ur ON ur.user_id = u.id <include refid="userWhere" /> ORDER BY
-        u.created_at DESC, u.id, ur.role_id <if test="query.pageSize != null"> LIMIT
-        #{query.pageSize} <if test="query.page != null and query.page != 1"> OFFSET
-        #{query.pageSize} * (#{query.page} - 1) </if>
+    <select id="listUserWithRoles" resultMap="userWithRoles"> SELECT u.*,d.id dept_id,d.name
+        dept_name, ur.role_id FROM sys_user u LEFT JOIN sys_users_roles ur ON ur.user_id = u.id LEFT
+        JOIN sys_dept d ON u.dept_id = d.id <include refid="userWhere" /> ORDER BY u.created_at
+        DESC, u.id, ur.role_id <if test="query.pageSize != null"> LIMIT #{query.pageSize} <if
+                test="query.page != null and query.page != 1"> OFFSET #{query.pageSize} *
+        (#{query.page} - 1) </if>
         </if>
     </select>
 

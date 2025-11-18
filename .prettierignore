@@ -1,0 +1,9 @@
+# Ignore MyBatis mapper XML files to prevent Prettier from reformatting them
+## Keep these files recognized as XML in the editor but excluded from Prettier
+
+**/src/main/resources/mapper/**/*.xml
+**/resources/mapper/**/*.xml
+**/mapper/**/*.xml
+
+# Also ignore common generated SQL/template files if needed
+# **/src/main/resources/sql/**/*.sql

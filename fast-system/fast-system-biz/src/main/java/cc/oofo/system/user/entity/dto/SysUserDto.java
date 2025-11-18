@@ -1,6 +1,6 @@
 package cc.oofo.system.user.entity.dto;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 import cc.oofo.system.user.entity.enums.SysUserSex;
@@ -44,10 +44,20 @@ public class SysUserDto {
     private String loginCity;
 
     /** 最后登录时间 */
-    private LocalDateTime loginTime;
+    private Timestamp loginTime;
 
     /** 创建时间 */
-    private LocalDateTime createTime;
+    private Timestamp createTime;
+
+    /**
+     * 部门ID
+     */
+    private String deptId;
+
+    /**
+     * 部门名称
+     */
+    private String deptName;
 
     /**
      * 角色列表

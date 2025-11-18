@@ -21,8 +21,9 @@
     <!-- 查询条件 -->
     <sql id="roleWhere">
         <where>
-            <!-- 根据ID精确查询 -->
-            <if test="query.id != null and query.id != ''"> AND id = #{query.id} </if>
+            <!-- 默认排除已删除的数据 --> AND is_deleted = false <!-- 根据ID精确查询 -->
+            <if
+                test="query.id != null and query.id != ''"> AND id = #{query.id} </if>
             <!-- 根据角色名称模糊查询 -->
             <if
                 test="query.name != null and query.name != ''"> AND name LIKE CONCAT('%',

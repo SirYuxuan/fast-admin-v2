@@ -95,6 +95,43 @@ public class SysUserService extends BaseService<SysUser> implements SysUserApi {
     }
 
     /**
+     * 修改一个用户
+     * 
+     * @param sysUserDto 用户数据传输对象
+     */
+    public void edit(SysUserDto sysUserDto) {
+        if (sysUserDto.getId() == null) {
+            throw new BizException("用户ID不能为空");
+        }
+        SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(sysUserDto, sysUser);
+        updateById(sysUser);
+    }
+
+    /**
+     * 添加一个用户
+     * 
+     * @param sysUserDto 用户数据传输对象
+     */
+    public void add(SysUserDto sysUserDto) {
+        if (sysUserDto == null) {
+            throw new BizException("用户信息不能为空");
+        }
+        SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(sysUserDto, sysUser);
+        save(sysUser);
+    }
+
+    /**
+     * 删除一个用户
+     * 
+     * @param id 用户ID
+     */
+    public void del(String id) {
+        removeById(id);
+    }
+
+    /**
      * 根据用户名获取认证用户信息
      * 
      * @param username 用户名

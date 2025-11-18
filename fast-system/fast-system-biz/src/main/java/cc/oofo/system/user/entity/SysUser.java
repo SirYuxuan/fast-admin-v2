@@ -22,6 +22,11 @@ import lombok.EqualsAndHashCode;
 public class SysUser extends BaseEntity<SysUser> {
 
     /**
+     * 部门ID
+     */
+    private String deptId;
+
+    /**
      * 用户名
      */
     private String username;

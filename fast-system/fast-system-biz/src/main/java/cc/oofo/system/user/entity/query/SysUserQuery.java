@@ -21,6 +21,10 @@ public class SysUserQuery extends BaseQuery<SysUser> {
 
     /** 用户ID */
     private String id;
+    /**
+     * 部门ID
+     */
+    private String deptId;
 
     /** 用户名 */
     private String username;
